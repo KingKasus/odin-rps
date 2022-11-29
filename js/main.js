@@ -3,6 +3,11 @@ let computerSelection;
 let wins = 0;
 let losses = 0;
 
+const buttons  = document.querySelectorAll("button");
+buttons.forEach(button => button.addEventListener("click", game));
+
+const results = document.querySelector(".results");
+const score = document.querySelector(".score");
 
 function getComputerChoice () {
     let randNum = Math.floor(Math.random() * 3);
@@ -11,11 +16,11 @@ function getComputerChoice () {
         case 0:
             return "Rock";
             break;
-        
+
         case 1:
             return "Paper";
             break;
-        
+
         case 2:
             return "Scissors";
             break;
@@ -77,18 +82,24 @@ function playRound (playerSel, computerSel) {
 }
 
 function game () {
-    for (let i = 0; i < 5; i++) {
-        playerSelection = prompt("Type Rock, Paper or Scissors to make your choice. Good luck.");
+        playerSelection = this.classList.value;
         computerSelection = getComputerChoice();
-        console.log(
+        results.textContent = (
             playRound(playerSelection, computerSelection)
-        );
-        console.log(
-            "Wins: " + wins + "   Losses: " + losses 
+        )
+        score.textContent = (
+            "Wins: " + wins + "   Losses: " + losses
         );
 
-    }
+        if (wins == 5) {
+            alert("You win!");
+            window.location.reload();
+        }
+        else if (losses == 5) {
+            alert("You lose!");
+            window.location.reload();
+        }
+
+
 }
 
-
-game()
